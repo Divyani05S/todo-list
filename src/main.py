@@ -56,11 +56,25 @@ def add_todo_interactive(manager: TodoManager) -> None:
         return
     
     description = get_user_input("Enter description (optional, press Enter to skip): ")
-    
+
+    # NEW: Ask for priority
+    priority = get_user_input("Enter priority (low/medium/high, default=medium): ").lower()
+    if priority not in ["low", "medium", "high", ""]:
+        print("[ERROR] Invalid priority. Allowed values: low, medium, high.")
+        return
+
+    if priority == "":
+        priority = "medium"
+
     try:
         todo = manager.add_todo(title, description)
+
+        # NEW: Store priority after creation
+        todo["priority"] = priority
+        manager._save_todos()
+
         print(f"\n[SUCCESS] Todo added successfully!")
-        print(f"  ID: {todo['id']} - {todo['title']}")
+        print(f"  ID: {todo['id']} - {todo['title']} (Priority: {todo['priority']})")
     except ValueError as e:
         print(f"[ERROR] {e}")
 
@@ -113,11 +127,24 @@ def update_todo_interactive(manager: TodoManager) -> None:
         
         print(f"Current description: {todo['description']}")
         new_description = get_user_input("Enter new description (press Enter to keep current): ")
+
+        # NEW: Priority update support
+        print(f"Current priority: {todo.get('priority', 'medium')}")
+        new_priority = get_user_input("Enter new priority (low/medium/high, press Enter to keep current): ").lower()
+
+        if new_priority not in ["low", "medium", "high", ""]:
+            print("[ERROR] Invalid priority. Allowed: low, medium, high.")
+            return
         
+        priority = new_priority if new_priority else todo.get("priority", "medium")
+
         title = new_title if new_title else None
         description = new_description if new_description else None
         
         if manager.update_todo(todo_id, title, description):
+            # Save updated priority
+            todo["priority"] = priority
+            manager._save_todos()
             print(f"[SUCCESS] Todo {todo_id} updated successfully!")
         else:
             print(f"[ERROR] Failed to update todo {todo_id}.")
