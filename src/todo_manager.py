@@ -68,6 +68,7 @@ class TodoManager:
             'id': len(self.todos) + 1,
             'title': title.strip(),
             'description': description.strip(),
+            'priority': 'medium',   # default priority
             'completed': False,
             'created_at': datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
             'completed_at': None

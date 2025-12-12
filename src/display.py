@@ -19,14 +19,18 @@ def format_todo(todo: Dict, detailed: bool = False) -> str:
     status = "[X]" if todo['completed'] else "[ ]"
     todo_id = todo['id']
     title = todo['title']
+    priority = todo.get('priority', 'medium')  # NEW PRIORITY FIELD
     
     if detailed:
         description = f"\n   Description: {todo['description']}" if todo['description'] else ""
         created = f"\n   Created: {todo['created_at']}"
         completed = f"\n   Completed: {todo['completed_at']}" if todo['completed'] else ""
-        return f"{status} ID: {todo_id} - {title}{description}{created}{completed}"
+        return (
+            f"{status} ID: {todo_id} - {title} (Priority: {priority})"
+            f"{description}{created}{completed}"
+        )
     else:
-        return f"{status} ID: {todo_id} - {title}"
+        return f"{status} ID: {todo_id} - {title} (Priority: {priority})"  # UPDATED
 
 
 def display_todos(todos: List[Dict], detailed: bool = False) -> None:
