@@ -4,6 +4,8 @@ Todo List Manager - A simple CLI application for managing todos.
 No external API keys required - everything runs locally!
 """
 
+# this comment is for qodo test
+
 import sys
 from todo_manager import TodoManager
 from display import display_todos, display_stats, display_menu
