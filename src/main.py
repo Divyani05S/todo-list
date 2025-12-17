@@ -6,6 +6,7 @@ No external API keys required - everything runs locally!
 
 # this comment is for qodo test
 # this comment is for self-hosted qodo test
+# this comment is for self-hosted qodo test 2
 
 import sys
 from todo_manager import TodoManager
