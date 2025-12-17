@@ -7,8 +7,10 @@ No external API keys required - everything runs locally!
 # this comment is for qodo test
 # this comment is for self-hosted qodo test
 # this comment is for self-hosted qodo test 2
+# this comment is for self-hosted qodo test 3
 
 import sys
+import random  # <--- NEW IMPORT
 from todo_manager import TodoManager
 from display import display_todos, display_stats, display_menu
 
@@ -184,6 +186,17 @@ def view_stats_interactive(manager: TodoManager) -> None:
     """Interactive function to view statistics."""
     stats = manager.get_stats()
     display_stats(stats)
+    
+    # --- NEW FEATURE: MOTIVATIONAL QUOTES ---
+    quotes = [
+        "Small steps lead to big changes.",
+        "Action is the foundational key to all success.",
+        "Don't count the days, make the days count.",
+        "The secret of getting ahead is getting started.",
+        "Well done is better than well said."
+    ]
+    print(f"\n💡 Daily Motivation: {random.choice(quotes)}")
+    # ----------------------------------------
 
 
 def main():
